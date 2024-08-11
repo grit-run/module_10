@@ -27,8 +27,8 @@ class Cafe():
         self.queue = queue.Queue()
         self.tables = number
 
-    def guest_arrival(self, *guests):
-        for guest in guests:
+    def guest_arrival(self, *visitors):
+        for guest in visitors:
             if any(True for i in self.tables if i.guest is None):
                 table = [i for i in self.tables if i.guest is None][0]
                 print("{} сел(-а) за стол номер {}".format(guest.name, table.number))
@@ -43,12 +43,12 @@ class Cafe():
             for table in (i for i in self.tables if i.guest):
                 if table.guest.is_alive():
                     table.guest.join()
-                    print("{} покушал(-а) и ушел(ушла)".format(table.guest.name))
+                    print("{} поел(-а) и ушел(ушла)".format(table.guest.name))
                     print("Стол номер {} свободен".format(table.number))
                     table.guest = None
                 if not self.queue.empty():
                     table.guest = self.queue.get()
-                    print("{} вышел(-ла) из очереди сел(-а) за стол номер {}".format(table.guest.name, table.number))
+                    print("{} вышел(-ла) из очереди и сел(-а) за стол номер {}".format(table.guest.name, table.number))
                     table.guest.start()
 
 
